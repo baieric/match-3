@@ -13,45 +13,31 @@ module.exports = (function (){
   }
 })()
 
-function create27Tiles(){
-  return [
-    {id: 1, shape: 'square', backgroundColor: 'red-light', shapeColor: 'blue'},
-    {id: 2, shape: 'square', backgroundColor: 'red-light', shapeColor: 'red'},
-    {id: 3, shape: 'square', backgroundColor: 'red-light', shapeColor: 'yellow'},
-    {id: 4, shape: 'square', backgroundColor: 'blue-light', shapeColor: 'blue'},
-    {id: 5, shape: 'square', backgroundColor: 'blue-light', shapeColor: 'red'},
-    {id: 6, shape: 'square', backgroundColor: 'blue-light', shapeColor: 'yellow'},
-    {id: 7, shape: 'square', backgroundColor: 'yellow-light', shapeColor: 'blue'},
-    {id: 8, shape: 'square', backgroundColor: 'yellow-light', shapeColor: 'red'},
-    {id: 9, shape: 'square', backgroundColor: 'yellow-light', shapeColor: 'yellow'},
+function createAllTiles(){
+  var shapeColours = ['blue', 'red', 'yellow', 'green'];
+  var shapes = ['square', 'circle', 'triangle', 'diamond'];
+  var backgroundColours = 
+    ['blue-light', 'red-light', 'yellow-light', 'green-light'];
+  var tiles = [];
+  var count = 1;
 
-    {id: 10, shape: 'circle', backgroundColor: 'red-light', shapeColor: 'blue'},
-    {id: 11, shape: 'circle', backgroundColor: 'red-light', shapeColor: 'red'},
-    {id: 12, shape: 'circle', backgroundColor: 'red-light', shapeColor: 'yellow'},
-    {id: 13, shape: 'circle', backgroundColor: 'blue-light', shapeColor: 'blue'},
-    {id: 14, shape: 'circle', backgroundColor: 'blue-light', shapeColor: 'red'},
-    {id: 15, shape: 'circle', backgroundColor: 'blue-light', shapeColor: 'yellow'},
-    {id: 16, shape: 'circle', backgroundColor: 'yellow-light', shapeColor: 'blue'},
-    {id: 17, shape: 'circle', backgroundColor: 'yellow-light', shapeColor: 'red'},
-    {id: 18, shape: 'circle', backgroundColor: 'yellow-light', shapeColor: 'yellow'},
+  for (var i = shapeColours.length - 1; i >= 0; i--) {
+    for (var j = shapes.length - 1; j >= 0; j--) {
+      for (var k = backgroundColours.length - 1; k >= 0; k--) {
+        tiles.push({id: count, shape: shapes[j], backgroundColor: backgroundColours[k], shapeColor: shapeColours[i]});
+        count++;
+      };
+    };
+  };
 
-    {id: 19, shape: 'triangle', backgroundColor: 'red-light', shapeColor: 'blue'},
-    {id: 20, shape: 'triangle', backgroundColor: 'red-light', shapeColor: 'red'},
-    {id: 21, shape: 'triangle', backgroundColor: 'red-light', shapeColor: 'yellow'},
-    {id: 22, shape: 'triangle', backgroundColor: 'blue-light', shapeColor: 'blue'},
-    {id: 23, shape: 'triangle', backgroundColor: 'blue-light', shapeColor: 'red'},
-    {id: 24, shape: 'triangle', backgroundColor: 'blue-light', shapeColor: 'yellow'},
-    {id: 25, shape: 'triangle', backgroundColor: 'yellow-light', shapeColor: 'blue'},
-    {id: 26, shape: 'triangle', backgroundColor: 'yellow-light', shapeColor: 'red'},
-    {id: 27, shape: 'triangle', backgroundColor: 'yellow-light', shapeColor: 'yellow'}
-  ]
+  return tiles;
 }
 
 function generate9Tiles(){
   var randomTiles = []
-  var tiles = create27Tiles()
+  var tiles = createAllTiles()
   shuffle(tiles)
-  for (var i = 9 - 1; i >= 0; i--) {
+  for (var i = 16 - 1; i >= 0; i--) {
     randomTiles.push(tiles.pop())
   }
   return randomTiles;

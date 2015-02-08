@@ -143,6 +143,7 @@ function renderTiles(tiles) {
 	$('#row0').empty();
 	$('#row1').empty();
 	$('#row2').empty();
+	$('#row3').empty();
 
 	for (var i = 0; i < tiles.length; i++) {
 		var shape;
@@ -154,15 +155,17 @@ function renderTiles(tiles) {
 			shape = '<polygon class="shape color-' + tile.shapeColor + '" points="50,0 0,100 100,100"/>';
 		} else if (tile.shape === 'circle') {
 			shape = '<circle class="shape color-' + tile.shapeColor + '" cx="50" cy="50" r="50"/>';
+		} else if(tile.shape == 'diamond'){
+			shape = '<polygon class="shape color-' + tile.shapeColor + '" points="50,0 100,50 50,100 0,50"/>';
 		}
 
-		var html = '<div class="col-xs-4">' +
+		var html = '<div class="col-xs-3">' +
 			'<div class="tile color-' + tile.backgroundColor + '" id="'+tile.id +'">' +
 			'<svg class="shape-svg" viewBox="0 0 100 100" preserveAspectRatio="none">' +
 			shape +
 			'</svg>' + '</div>' + '</div>'
 
-		$('#row' + Math.floor(i / 3)).append(html);
+		$('#row' + Math.floor(i / 4)).append(html);
 	}
 	$('.tile').unbind('click')
 	$('#no-more').unbind('click')

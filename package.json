@@ -7,7 +7,7 @@
     "url": "https://github.com/dvdfu/match-3"
   },
   "scripts": {
-    "start": "node index"
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "express": "^4.10.2",

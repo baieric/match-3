@@ -9,14 +9,6 @@ body {
 	background-color: #123;
 }
 
-form {
-	background: #000;
-	padding: 3px;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-}
-
 form input {
 	border: 0;
 	padding: 10px;
@@ -78,6 +70,11 @@ form button {
 	text-align: center;
 }
 
+.col-xs-3 {
+	padding: 5px;
+	text-align: center;
+}
+
 .col-xs-6 {
 	padding: 1.5%;
 	text-align: center;
@@ -119,6 +116,10 @@ form button {
 	fill: #fc0;
 }
 
+.color-green {
+	fill: #7B3;
+}
+
 .color-red-light {
 	background: #711;
 }
@@ -129,6 +130,10 @@ form button {
 
 .color-yellow-light {
 	background: #761;
+}
+
+.color-green-light {
+	background: #480;
 }
 
 #messages {
