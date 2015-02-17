@@ -199,7 +199,15 @@ function tileClickHandler(){
 }
 
 function noMoreClickHandler(){
-	socket.emit('noMoreMovesRequest', userObj);
+	socket.emit('tileSolveRequest', {
+		user: userObj,
+		tiles: guess.sort(function (a,b){return a-b})
+	})
+	for (var i = guess.length - 1; i >= 0; i--) {
+		document.getElementById(guess[i]).style.opacity = 1
+	};
+	$('.tile').unbind('click')
+	guess = []
 	$('#no-more').unbind('click')
 }
 
