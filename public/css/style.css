@@ -44,7 +44,7 @@ form button {
 	position: relative;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	width: 65%;
+	width: 90%;
 	text-align: center;
 	background: #001;
 	border-radius: 5%;
@@ -117,7 +117,7 @@ form button {
 }
 
 .color-green {
-	fill: #7B3;
+	fill: #2C3;
 }
 
 .color-red-light {
@@ -133,7 +133,7 @@ form button {
 }
 
 .color-green-light {
-	background: #480;
+	background: #261;
 }
 
 #messages {

@@ -181,20 +181,20 @@ function tileClickHandler(){
 		$el.style.opacity=1
 		var index = guess.indexOf(id)
 		guess.splice(index, index+1)
-	} else if(guess.length < 3){
+	} else {
 		guess.push(id)
 		$el.style.opacity=OPACITY
-		if(guess.length === 3){
-			socket.emit('tileSolveRequest', {
-				user: userObj,
-				tiles: guess.sort(function (a,b){return a-b})
-			})
-			for (var i = guess.length - 1; i >= 0; i--) {
-				document.getElementById(guess[i]).style.opacity = 1
-			};
-			$('.tile').unbind('click')
-			guess = []
-		}
+		// if(guess.length === 3){
+		// 	socket.emit('tileSolveRequest', {
+		// 		user: userObj,
+		// 		tiles: guess.sort(function (a,b){return a-b})
+		// 	})
+		// 	for (var i = guess.length - 1; i >= 0; i--) {
+		// 		document.getElementById(guess[i]).style.opacity = 1
+		// 	};
+		// 	$('.tile').unbind('click')
+		// 	guess = []
+		// }
 	}
 }
 

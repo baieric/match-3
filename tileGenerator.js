@@ -57,9 +57,9 @@ function shuffle(array) {
 
 function solveTiles(tiles){
   var answers = []
-  for (var i = 0; i < 7; i++){
-    for(var j = i+1; j < 8; j++){
-      for(var k = j+1; k < 9; k++){
+  for (var i = 0; i < 14; i++){
+    for(var j = i+1; j < 15; j++){
+      for(var k = j+1; k < 16; k++){
         if(
           (( tiles[i].shape === tiles[j].shape &&
               tiles[i].shape === tiles[k].shape ) ||
