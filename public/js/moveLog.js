@@ -10,7 +10,7 @@
   function generateShape(tiles){
     var shape;
     var html = '';
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < tiles.length; i++) {
       tile = tiles[i];
 
       if (tile.shape === 'square') {
@@ -19,7 +19,7 @@
         shape = '<polygon class="shape color-' + tile.shapeColor + '" points="50,0 0,100 100,100"/>';
       } else if (tile.shape === 'circle') {
         shape = '<circle class="shape color-' + tile.shapeColor + '" cx="50" cy="50" r="50"/>';
-      } else if(tile.shape == 'diamond'){
+      } else if(tile.shape === 'diamond'){
         shape = '<polygon class="shape color-' + tile.shapeColor + '" points="50,0 100,50 50,100 0,50"/>';
       }
 

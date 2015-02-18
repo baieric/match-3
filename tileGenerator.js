@@ -8,6 +8,7 @@
 
 module.exports = (function (){
   return {
+    createAllTiles: createAllTiles,
     generate9Tiles: generate9Tiles,
     solveTiles: solveTiles
   }
@@ -19,13 +20,11 @@ function createAllTiles(){
   var backgroundColours = 
     ['blue-light', 'red-light', 'yellow-light', 'green-light'];
   var tiles = [];
-  var count = 1;
 
   for (var i = shapeColours.length - 1; i >= 0; i--) {
     for (var j = shapes.length - 1; j >= 0; j--) {
       for (var k = backgroundColours.length - 1; k >= 0; k--) {
-        tiles.push({id: count, shape: shapes[j], backgroundColor: backgroundColours[k], shapeColor: shapeColours[i]});
-        count++;
+        tiles.push({shape: shapes[j], backgroundColor: backgroundColours[k], shapeColor: shapeColours[i]});
       };
     };
   };
@@ -37,8 +36,16 @@ function generate9Tiles(){
   var randomTiles = []
   var tiles = createAllTiles()
   shuffle(tiles)
-  for (var i = 16 - 1; i >= 0; i--) {
-    randomTiles.push(tiles.pop())
+  var count = 0;
+  for (var i = 4 - 1; i >= 0; i--) {
+    for (var j = 4 - 1; j >= 0; j--) {
+      var rTile = tiles.pop()
+      rTile.x = i
+      rTile.y = j
+      rTile.id = count
+      count++
+      randomTiles.push(rTile)
+    }
   }
   return randomTiles;
 }

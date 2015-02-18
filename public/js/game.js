@@ -201,7 +201,7 @@ function tileClickHandler(){
 function noMoreClickHandler(){
 	socket.emit('tileSolveRequest', {
 		user: userObj,
-		tiles: guess.sort(function (a,b){return a-b})
+		tiles: guess.sort(function (a,b){ return b-a })
 	})
 	for (var i = guess.length - 1; i >= 0; i--) {
 		document.getElementById(guess[i]).style.opacity = 1
@@ -229,6 +229,8 @@ function showCheckMark(){
 			}, 250, function (){
 				$('.tile').unbind('click')
 				$('.tile').bind('click', tileClickHandler)
+				$('#no-more').unbind('click')
+				$('#no-more').bind('click', noMoreClickHandler)
 			})
 		}, 500)
 	})

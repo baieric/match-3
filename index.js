@@ -36,40 +36,95 @@ function generateUser(){
 function tileSolveRequest(reqObj, socket){
 	var reqUser = reqObj.user;
 	var reqTiles = reqObj.tiles;
-	var correctReq = false;
-	for(var i = 0; i < answers.length; i++){
-		if( answers[i][0].id === reqTiles[0] &&
-			answers[i][1].id === reqTiles[1] &&
-			answers[i][2].id === reqTiles[2]){
-			correctReq = true;
-			if(score[reqUser.username]){
-				score[reqUser.username].points += 1;
-			} else {
-				score[reqUser.username] = {
-					user: reqUser,
-					points: 1
-				};
-			}
-			resObj = {  user: reqUser,
-						tiles: answers[i]};
-			io.emit('tileSolved', resObj);
-			socket.emit('successRequest');
-			answers.splice(i, 1);
-			moveLog.push(resObj);
-			console.log('answers left: ' + answers.length)
-			console.log(util.format('answers: %j', answers));
-			return;
-		}
+	var correctReq = true;
+
+	if(reqTiles.length < 3){
+		correctReq = false;
+	}else{
+
+		var selectedTiles = [];
+
+		var shapeColours = ['blue', 'red', 'yellow', 'green'];
+	  	var shapes = ['square', 'circle', 'triangle', 'diamond'];
+	  	var backgroundColours = 
+	    ['blue-light', 'red-light', 'yellow-light', 'green-light'];
+
+	    var shapeColourCount = {};
+	    for (var i = shapeColours.length - 1; i >= 0; i--) {
+	    	shapeColourCount[shapeColours[i]] = 0;
+	    };
+
+	    var backgroundColourCount = {};
+	    for (var i = backgroundColours.length - 1; i >= 0; i--) {
+	    	backgroundColourCount[backgroundColours[i]] = 0;
+	    };
+
+	    var shapeCount = {};
+	    for (var i = shapes.length - 1; i >= 0; i--) {
+	    	shapeCount[shapes[i]] = 0;
+	    };
+
+	    for (var i = reqTiles.length - 1; i >= 0; i--) {
+	    	sTile = tiles[reqTiles[i]]
+	    	selectedTiles.push(sTile);
+	    	shapeCount[sTile.shape]++
+	    	shapeColourCount[sTile.shapeColor]++
+	    	backgroundColourCount[sTile.backgroundColor]++
+	    	if(shapeCount[sTile.shape] > 1
+	    		|| shapeColourCount[sTile.shapeColor] > 1
+	    		|| backgroundColourCount[sTile.backgroundColor] > 1){
+	    			console.log(util.format('shapeCount: %j', shapeCount));
+	    		console.log(util.format('shapeColourCount: %j', shapeColourCount));
+	    		console.log(util.format('backgroundColourCount: %j', backgroundColourCount));
+	    			correctReq = false;
+	    			break;
+	    	}
+	    };
 	}
-	if(!correctReq){
-		for(var i =0; i < moveLog.length; i++){
-			if( moveLog[i].tiles[0].id === reqTiles[0] &&
-			moveLog[i].tiles[1].id === reqTiles[1] &&
-			moveLog[i].tiles[2].id === reqTiles[2]){
-				socket.emit('errorRequest', moveLog[i].user.thumbnail);
-				return;
-			}
+
+    if(correctReq){
+    	if(score[reqUser.username]){
+			score[reqUser.username].points += 1;
+		} else {
+			score[reqUser.username] = {
+				user: reqUser,
+				points: 1
+			};
 		}
+		resObj = {  user: reqUser,
+					tiles: selectedTiles};
+		console.log(util.format('selected: %j', selectedTiles));
+		io.emit('tileSolved', resObj);
+		socket.emit('successRequest');
+		moveLog.push(resObj);
+		return;
+    }
+
+	// for(var i = 0; i < answers.length; i++){
+	// 	if( answers[i][0].id === reqTiles[0] &&
+	// 		answers[i][1].id === reqTiles[1] &&
+	// 		answers[i][2].id === reqTiles[2]){
+	// 		correctReq = true;
+	// 		if(score[reqUser.username]){
+	// 			score[reqUser.username].points += 1;
+	// 		} else {
+	// 			score[reqUser.username] = {
+	// 				user: reqUser,
+	// 				points: 1
+	// 			};
+	// 		}
+	// 		resObj = {  user: reqUser,
+	// 					tiles: answers[i]};
+	// 		io.emit('tileSolved', resObj);
+	// 		socket.emit('successRequest');
+	// 		answers.splice(i, 1);
+	// 		moveLog.push(resObj);
+	// 		console.log('answers left: ' + answers.length)
+	// 		console.log(util.format('answers: %j', answers));
+	// 		return;
+	// 	}
+	// }
+	if(!correctReq){
 		socket.emit('errorRequest');
 	}
 }
@@ -106,7 +161,6 @@ function noMoreMovesRequest(user, socket){
 function setupPhase() {
 	tiles = tileGenerator.generate9Tiles();
 	answers = tileGenerator.solveTiles(tiles);
-	console.log(answers)
 	moveLog = [];
 	setTimeout(function(){
 		score = {};
