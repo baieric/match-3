@@ -28,7 +28,7 @@ function userExists(name){
 }
 
 function generateUser(){
-	new_user = new User("Bob " + bobNum, "http://static.tumblr.com/ff8079335ffe2122813751fa64d3a87f/mjzseut/yxOmw9tr5/tumblr_static_lehnereyes.jpg");
+	new_user = new User("Anonymous " + bobNum, "https://tracker.moodle.org/secure/attachment/30912/f3.png");
 	bobNum += 1;
 	return new_user;
 }

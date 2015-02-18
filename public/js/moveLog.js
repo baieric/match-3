@@ -19,6 +19,8 @@
         shape = '<polygon class="shape color-' + tile.shapeColor + '" points="50,0 0,100 100,100"/>';
       } else if (tile.shape === 'circle') {
         shape = '<circle class="shape color-' + tile.shapeColor + '" cx="50" cy="50" r="50"/>';
+      } else if(tile.shape == 'diamond'){
+        shape = '<polygon class="shape color-' + tile.shapeColor + '" points="50,0 100,50 50,100 0,50"/>';
       }
 
       html += ('<div class="tileWrapper">' +
